@@ -1,6 +1,6 @@
 {
   "name": "tapable-plain",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "lib/index.umd.js",
   "module": "lib/index.esm.js",
   "browser": "lib/index.umd.js",

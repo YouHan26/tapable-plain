@@ -5,23 +5,16 @@ class SyncTask extends Task {
 		super(TASK_TYPE.sync, config, fn);
 	}
 
-	_run() {
-		const args = this._runArgs || [];
+	_run(runId) {
+		const args = this._getExecuteArgs(runId);
 		try {
 			const fn = this.fn;
-			return fn(
+			this._done(runId, this, fn(
 				...args
-			);
+			));
 		} catch (e) {
-			this.onError(e);
+			this.onError(runId, this, e);
 		}
-	}
-
-	execute(args) {
-		this.onExecute(this);
-		this._setExecuteArgs(args);
-		const result = this._run();
-		this._done(result);
 	}
 }
 

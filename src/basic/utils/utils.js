@@ -49,5 +49,10 @@ function is(typeStr) {
 
 export const isFunction = is('Function');
 export const isObject = is('Object');
-export const isArray = Array.isArray;
+export const isArray = Array.isArray || is('Array');
 export const isString = is('String');
+
+
+export function ensureArray(){
+
+}

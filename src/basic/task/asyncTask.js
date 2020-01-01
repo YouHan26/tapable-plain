@@ -5,27 +5,17 @@ class AsyncTask extends Task {
 		super(TASK_TYPE.sync, config, fn);
 	}
 
-	_callback(result){
-		this._done(result);
-	}
-
-	_run() {
-		const args = this._runArgs || [];
+	_run(runId) {
+		const args = this._getExecuteArgs(runId);
 		try {
 			const fn = this.fn;
 			return fn(
 				...args,
-				this._callback.bind(this)
+				this._done.bind(this, runId, this)
 			);
 		} catch (e) {
-			this.onError(e);
+			this.onError(runId, this, e);
 		}
-	}
-
-	execute(args) {
-		this.onExecute(this);
-		this._setExecuteArgs(args);
-		this._run();
 	}
 }
 

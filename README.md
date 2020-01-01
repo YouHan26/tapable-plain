@@ -61,13 +61,13 @@ p
 
 # Pipeline Type
 
-### Series Pipeline
-
-flow
+#### Series Pipeline
 
 ![flow](https://i.ibb.co/t22mCVp/2020-01-01-11-28-31.png)
 
+#### Parallel Pipeline
 
+![flow](https://i.ibb.co/3vQPKFL/2020-01-01-11-35-48.png)
 
 
 ### TODO

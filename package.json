@@ -1,6 +1,6 @@
 {
   "name": "pipeline-task",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "lib/index.umd.js",
   "module": "lib/index.esm.js",
   "browser": "lib/index.umd.js",

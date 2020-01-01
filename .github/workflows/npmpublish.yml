@@ -18,5 +18,11 @@ jobs:
       run: echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" >> ~/.npmrc
       env:
         NODE_AUTH_TOKEN: ${{ secrets.npm }}
-    - name: Publish
-      run: npm run pub --no-git-tag-version
+    - name: update git account
+      run: git config user.name youhan26
+    - name: update git 
+      run: git config user.email youhan26@gmail.com
+    - name: update version
+      run: npm version patch
+    - name: publish
+      run: npm publish --no-git-tag-version

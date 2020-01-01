@@ -17,7 +17,7 @@ const taskId = createId('$queue_task');
  * } // 其中bail和waterfall冲突,只能开启一个
  */
 class Task {
-	constructor(type, config, fn) {
+	constructor(type, fn, config) {
 		this.id = taskId();
 		this.fn = fn;
 		this.type = type;

@@ -46,6 +46,7 @@ class BasePipeline {
 				this._setup(task);
 			}
 		}
+		return this;
 	}
 
 	intercept(config = {}) {

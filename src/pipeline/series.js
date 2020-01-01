@@ -4,7 +4,7 @@
 import BasePipeline from "./basePipeline";
 
 class SeriesPipeline extends BasePipeline {
-	constructor(config) {
+	constructor(config = {}) {
 		super(config);
 	}
 

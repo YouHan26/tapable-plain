@@ -1,22 +1,21 @@
-name: Node.js Package2
+name: Publish
 
 on:
-  push:
-    branches:
-    - master
+  release:
+    types: [published]
 
 jobs:
-  publish-npm:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-          registry-url: https://registry.npmjs.org/
-      - run: npm install
-      - run: npm ci
-      - run: npm run build
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+    - uses: actions/checkout@v1
+    - name: Install dependencies
+      run: yarn install
+    - name: Build
+      run: yarn run build
+    - name: Create .npmrc
+      run: echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" >> ~/.npmrc
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.npm }}
+    - name: Publish
+      run: yarn publish --new-version ${GITHUB_REF#"refs/tags/"} --no-git-tag-version

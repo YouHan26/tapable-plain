@@ -12,7 +12,6 @@ const taskId = createId('$queue_task');
  * Task
  * config: {
  *  name,
- *  context,
  *  before: '' / []
  * } // 其中bail和waterfall冲突,只能开启一个
  */

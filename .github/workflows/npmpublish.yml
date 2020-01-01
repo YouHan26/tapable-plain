@@ -19,4 +19,4 @@ jobs:
       env:
         NODE_AUTH_TOKEN: ${{ secrets.npm }}
     - name: Publish
-      run: yarn pub --no-git-tag-version
+      run: npm run pub --no-git-tag-version

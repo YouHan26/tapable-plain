@@ -11,7 +11,24 @@ export const runFlow = function () {
 	console.log('test series basic');
 	Pipeline('series')
 		.addTask(
-			genTasks()
+			new SyncTask(function (arg) {
+				assert.equal(arg, 111);
+				console.log('run task1');
+			}),
+			new AsyncTask(function (arg, callback) {
+				assert.equal(arg, 111);
+				setTimeout(function () {
+					console.log('run task2');
+					callback();
+				}, 1000);
+			}),
+			new PromiseTask(function (arg) {
+				assert.equal(arg, 111);
+				return Promise.resolve().then(function () {
+					console.log('run task3');
+					return;
+				});
+			})
 		)
 		.run(111)
 		.then(function (res) {

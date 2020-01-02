@@ -13,7 +13,7 @@
     "dev": "rollup -c -w",
     "test": "node test/index.js",
     "pretest": "npm run build",
-    "pub": "npm version patch"
+    "pub": "yarn build && yarn text && npm version patch"
   },
   "repository": {
     "type": "git",

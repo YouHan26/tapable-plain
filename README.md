@@ -142,5 +142,4 @@ interface PromiseTask extends Task{
 
 ### TODO
 * [ ] 优化task注册机制
-* [ ] 单元测试
 * [ ] 支持pipeline作为task嵌套

@@ -27,7 +27,5 @@ jobs:
       run: git config user.name youhan26
     - name: update git 
       run: git config user.email youhan26@gmail.com
-    - name: update version
-      run: npm version patch
     - name: publish
       run: npm publish --no-git-tag-version

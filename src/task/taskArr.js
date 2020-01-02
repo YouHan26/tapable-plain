@@ -1,7 +1,7 @@
 /**
  * TaskArr
  */
-import { ensureArray, isArray } from "../utils/utils";
+import { ensureArray, isArray } from "../utils/utils.js";
 
 class TaskArr {
 	constructor() {
@@ -44,11 +44,15 @@ class TaskArr {
 
 	_sortArr() {
 		this._taskArr.sort(function (a, b) {
-			const { before } = b.config;
-			if (before && ~ensureArray(before).indexOf(a.config.name)) {
+			const { before: bBefore } = b.config;
+			if (bBefore && ~ensureArray(bBefore).indexOf(a.config.name)) {
 				return 1;
 			}
-			return -1;
+			const { before: aBefore } = a.config;
+			if (aBefore && ~ensureArray(aBefore).indexOf(b.config.name)) {
+				return -1;
+			}
+			return 0;
 		});
 	}
 
@@ -74,7 +78,7 @@ class TaskArr {
 		if (!this._runs[ pid ]) {
 			this._runs[ pid ] = this.getAll();
 		}
-		return this._runs[ pid ].pop();
+		return this._runs[ pid ].shift();
 	}
 }
 

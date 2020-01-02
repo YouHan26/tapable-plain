@@ -1,4 +1,4 @@
-import { createId } from "../utils/utils";
+import { createId } from "../utils/utils.js";
 
 const observableId = createId('$observable_id');
 
@@ -20,7 +20,7 @@ class Observable {
 	}
 
 	trigger(...args) {
-		Object.keys(this.observers).forEach(function (key) {
+		Object.keys(this.observers).forEach( (key) => {
 			const observer = this.observers[ key ];
 			const { fn } = observer || {};
 			fn && fn(...args);

@@ -1,6 +1,6 @@
-import { merge } from "../utils/utils";
-import ParallelPipeline from "./parallel";
-import SeriesPipeline from "./series";
+import { merge } from "../utils/utils.js";
+import ParallelPipeline from "./parallel.js";
+import SeriesPipeline from "./series.js";
 
 const defaultQueueConfig = {
 	// 是否提前退出
@@ -14,7 +14,7 @@ const defaultQueueConfig = {
 	// 是否重新throw被捕获error
 	rethrowIfPossible: true,
 	// 是否开启共享context
-	context: true,
+	context: false,
 };
 
 const QUEUE_TYPE = {
@@ -32,7 +32,7 @@ const defaultQueueType = QUEUE_TYPE.parallel;
  * @constructor
  */
 function Pipeline(type = defaultQueueType, config) {
-	const newConfig = merge(config, defaultQueueConfig);
+	const newConfig = merge(defaultQueueConfig, config);
 	if (type === QUEUE_TYPE.parallel) {
 		return new ParallelPipeline(newConfig);
 	}

@@ -1,4 +1,3 @@
-
 export function createId(prefix) {
 	let i = 0;
 	return () => {
@@ -53,6 +52,9 @@ export const isArray = Array.isArray || is('Array');
 export const isString = is('String');
 
 
-export function ensureArray(){
-
+export function ensureArray(arr) {
+	if (arr === undefined) {
+		return [];
+	}
+	return isArray(arr) ? arr : [ arr ];
 }

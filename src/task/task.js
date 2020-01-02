@@ -1,4 +1,4 @@
-import { createId, isObject, merge, noop } from "../utils/utils";
+import { createId, isObject, noop } from "../utils/utils.js";
 
 export const TASK_TYPE = {
 	sync: 'sync',
@@ -44,7 +44,7 @@ class Task {
 	}
 
 	_getExecuteArgs(runId){
-		return this._runArgs[ runId ] || [];
+		return [...this._runArgs[ runId ] || []];
 	}
 
 	_run() {
@@ -60,8 +60,8 @@ class Task {
 	}
 
 	execute(runId, args, isRerun = false) {
-		this.onExecute(runId, this);
 		if (!isRerun) {
+			this.onExecute(runId, this);
 			this._setExecuteArgs(runId, args);
 		}
 		this._run(runId);

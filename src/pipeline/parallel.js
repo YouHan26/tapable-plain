@@ -1,7 +1,7 @@
 /**
  * 并行序列
  */
-import BasePipeline from "./basePipeline";
+import BasePipeline from "./basePipeline.js";
 
 class ParallelPipeline extends BasePipeline {
 	constructor(config = {}) {
@@ -35,6 +35,7 @@ class ParallelPipeline extends BasePipeline {
 		let method = typeHandleArr.shift();
 		while (continueRun && method) {
 			continueRun = method.call(this, runId, task, result);
+			method = typeHandleArr.shift();
 		}
 		// 还没有处理状态啥的,需要最后更新下task状态
 		if (continueRun !== null) {
@@ -53,8 +54,8 @@ class ParallelPipeline extends BasePipeline {
 	}
 
 	_handleLoop(runId, task, result) {
-		if (!result) {
-			task.rerun();
+		if (result === undefined) {
+			task.rerun(runId);
 			return null; //不需要后续处理
 		}
 		return true;
@@ -69,14 +70,16 @@ class ParallelPipeline extends BasePipeline {
 				status: 'start',
 				waterfall: undefined,
 				resolve,
+				runArgs: args,
 				reject,
 				tasks: tasks.reduce((res, task) => {
-					return res[ task.id ] = 'start';
+					res[ task.id ] = 'start';
+					return res;
 				}, {}),
 			};
 			// 锁定当前执行task，防止中途添加task
 			tasks.forEach((task) => {
-				task.execute(runId, this._getTaskArgs(args, runId));
+				task.execute(runId, this._getTaskArgs(runId));
 			});
 		});
 	}

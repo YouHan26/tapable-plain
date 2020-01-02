@@ -1,4 +1,4 @@
-import Task, { TASK_TYPE } from "./task";
+import Task, { TASK_TYPE } from "./task.js";
 
 class SyncTask extends Task {
 	constructor(fn, config) {
@@ -9,7 +9,7 @@ class SyncTask extends Task {
 		const args = this._getExecuteArgs(runId);
 		try {
 			const fn = this.fn;
-			this._done(runId, this, fn(
+			this._done(runId, fn(
 				...args
 			));
 		} catch (e) {

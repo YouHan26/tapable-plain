@@ -1,7 +1,8 @@
-import Observable from "./observable";
-import TaskArr from "../task/taskArr";
-import Task from "../task/task";
-import { createId, isArray, isFunction } from "../utils/utils";
+import Observable from "./observable.js";
+import TaskArr from "../task/taskArr.js";
+import Task from "../task/task.js";
+import { createId, isArray, isFunction } from "../utils/utils.js";
+import get from '../utils/get.js';
 
 const interceptorNames = [
 	'onError',
@@ -19,17 +20,19 @@ const pipelineRunId = createId('$pipeline_run_id');
  */
 class BasePipeline {
 	constructor(config) {
+		const ctx = config.context;
 		this.config = config;
+		this.config.context = (ctx !== undefined) && (ctx !== false);
 		this._tasks = new TaskArr();
 		// 每次执行共享，后续考虑是否分隔每次执行context
-		this.context = null;
+		this.context = this.config.context ? ctx : null;
 		this._initObservables();
 		this._runIds = {};
 	}
 
 	_initObservables() {
 		this.observables = {};
-		interceptorNames.forEach(function (name) {
+		interceptorNames.forEach((name) => {
 			this.observables[ name ] = new Observable();
 		});
 	}
@@ -57,6 +60,7 @@ class BasePipeline {
 				ids[ name ] = this.observables[ name ].subscribe(fn);
 			}
 		});
+		return this;
 	}
 
 	unintercept(ids = {}) {
@@ -158,17 +162,22 @@ class BasePipeline {
 		}
 	}
 
-	_getTaskArgs(args = [], runId) {
+	_getTaskArgs(runId, isFirstTask = false) {
 		const { context, waterfall } = this.config;
-		const newArgs = [ ...args ];
-
-		if (waterfall) {
-			const config = this._runIds[ runId ];
-			if (config) {
-
+		let newArgs;
+		const config = this._runIds[ runId ];
+		if (config) {
+			if (waterfall && !isFirstTask) {
+				newArgs = [ config.waterfall ];
+			} else {
+				newArgs = config.runArgs;
 			}
 		}
-		return context ? newArgs.unshift(this.context) : newArgs;
+
+		if (context) {
+			newArgs.unshift(this.context);
+		}
+		return newArgs;
 	}
 
 	run() {

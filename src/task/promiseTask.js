@@ -1,8 +1,8 @@
-import Task, { TASK_TYPE } from "./task";
+import Task, { TASK_TYPE } from "./task.js";
 
 class PromiseTask extends Task {
 	constructor(fn, config) {
-		super(TASK_TYPE.sync, fn, config);
+		super(TASK_TYPE.promise, fn, config);
 	}
 
 	_run(runId) {

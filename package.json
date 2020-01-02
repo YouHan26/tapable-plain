@@ -18,6 +18,7 @@
     "type": "git",
     "url": "https://github.com/YouHan26/pipeline-task.git"
   },
+  "type": "module",
   "author": "youhan26<youhan26@gmail.com>",
   "license": "Apache License 2.0",
   "devDependencies": {

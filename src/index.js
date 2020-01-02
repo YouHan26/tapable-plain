@@ -5,10 +5,10 @@
  */
 ;
 
-export { default as Task } from './task/task';
-export { default as AsyncTask } from './task/asyncTask';
-export { default as SyncTask } from './task/syncTask';
-export { default as PromiseTask } from './task/promiseTask';
-export { default as Pipeline } from './pipeline/pipeline';
-export { default as ParallelPipeline } from './pipeline/parallel';
-export { default as SeriesPipeline } from './pipeline/series';
+export { default as Task } from './task/task.js';
+export { default as AsyncTask } from './task/asyncTask.js';
+export { default as SyncTask } from './task/syncTask.js';
+export { default as PromiseTask } from './task/promiseTask.js';
+export { default as Pipeline } from './pipeline/pipeline.js';
+export { default as ParallelPipeline } from './pipeline/parallel.js';
+export { default as SeriesPipeline } from './pipeline/series.js';
